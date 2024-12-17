@@ -1,14 +1,16 @@
 # FlavorVault
 
-Welcome to FlavorVault, the ultimate recipe hub for young adults! Discover easy, delicious recipes that make cooking fun and accessible. From quick weeknight dinners to impressive dishes for special occasions, FlavorVault has something for everyone. Join our community and start your culinary adventure today!
+Welcome to FlavorVault, the ultimate recipe database for all ages. Discover easy, delicious recipes that make cooking fun and accessible. From quick weeknight dinners to impressive dishes for special occasions, FlavorVault has something for everyone. Join our community and start your culinary adventure today!
 
-### Link to live site : [FlavorVault](https://github.com/EthanPeters96/FlavorVault)
+### Link to live site : [FlavorVault](#)
 
 ## User Experience (UX)
 
 ### Initial Discussion
 
-FlavorVault is a online recipe page that is focused towards young adults who are looking to step up there cooking game from home and create easy yet tasty meals, without breaking a sweat.
+FlavorVault is a online recipe database that is focused towards all ages who are looking to step up there cooking game from home and create easy yet tasty meals, without breaking a sweat.
+
+The site is designed to be a simple and easy to use recipe database that allows users to add, view, edit and delete recipes.
 
 ### User Stories
 
@@ -16,6 +18,7 @@ FlavorVault is a online recipe page that is focused towards young adults who are
 
 -   To be able to view the site on a range of devices.
 -   To make it easy for users to find and follow recipes.
+-   To allow users to add, view, edit and delete recipes.
 -   To allow people to contact FlavorVault to ask further questions or suggest cooking recommendations etc.
 
 #### First Time User Goals
@@ -46,36 +49,35 @@ I used [Favicon](https://favicon.io/) to create my favicon.
 
 ### Wireframes
 
-I initially started drawing my wireframes and quickly realized that i was over complicating them.  
-I then took a simpler approach to the remaining wireframes.
-
 I used [Balsamiq](https://balsamiq.com/) for my wireframes.
+
+![FlavorVault Wireframes](/assets/screenshots/wireframes.png)
 
 #### Home Page
 
-![Home](/assets/images/Flavour%20Wave%20Home%20.webp)
+![Home](#)
 
 #### Recipes Page
 
-![Recipes](/assets/images/Flavour%20Wave%20Recipes%20.webp)
+![Recipes](#)
 
 #### About Page
 
-![About](/assets/images/Flavour%20Wave%20About%20.webp)
+![About](#)
 
 #### Contact Page
 
-![Contact](/assets/images/Flavour%20Wave%20Contact%20.webp)
+![Contact](#)
 
 ## Features
 
-The website is comprised of four main pages, all are accessible from the navigation menu (home page, recipes page, about page & contact page).  
-And two secondary pages. (tacos page & carbonara page).  
-Lastly two extra pages. (404 page & thank-you page).
+The website is comprised of four main pages, all are accessible from the navigation menu (home page, categories page, login page & signup page).  
+And two secondary pages. (recipe page & recipe form page).  
+Lastly one extra page. (404 page)
 
 #### All Pages on the website have:
 
--   A responsive navigation bar at the top which allows the user to navigate through the site. To the left of the navigation bar is the text FlavorVault. To the right of the navigation bar are the links to the website pages (home page, recipes page, about page & contact page). When viewing on mobile devices the navigation links change to a burger toggler. This was implemented to give the site a clean look and to promote a good user experience, as users are used to seeing the burger icon when navigating a site on a mobile device.
+-   A responsive navigation bar at the top which allows the user to navigate through the site. To the left of the navigation bar is the text FlavorVault. To the right of the navigation bar are the links to the website pages (home page, categories page, login page & signup page). When viewing on mobile devices the navigation links change to a burger toggler. This was implemented to give the site a clean look and to promote a good user experience, as users are used to seeing the burger icon when navigating a site on a mobile device.
 
 -   A footer which contains social media icons links to Instagram and Facebook. Icons were used to keep the footer clean and because they are universally recognizable.
 
@@ -85,43 +87,51 @@ Each page has the same header and footer as well as theme to complete.
 
 #### Home Page
 
-![FlavorVault Home page](/assets/screenshots/home-page.jpg)
+![FlavorVault Home page](#)
 
 #### Recipes Page
 
-![FlavorVault Recipes page](/assets/screenshots/recipes-page.jpg)
+![FlavorVault Recipes page](#)
 
 #### Contact Page
 
-![FlavorVault Contact page](/assets/screenshots/contact-page.jpg)
+![FlavorVault Contact page](#)
 
 #### About Page
 
-![FlavorVault About page](/assets/screenshots/about-page.jpg)
+![FlavorVault About page](#)
 
 #### Carbonara Page
 
-![FlavorVault Carbonara page](/assets/screenshots/carbonara-page.jpg)
+![FlavorVault Carbonara page](#)
 
 #### Tacos Page
 
-![FlavorVault Tacos page](/assets/screenshots/tacos-page.jpg)
+![FlavorVault Tacos page](#)
 
 ## Technologies Used
 
 ### Languages Used
 
-Languages used HTML & CSS
+Languages used HTML & CSS & Python & JavaScript
 
 ### Frameworks, Libraries & Programs Used
 
 Balsamiq - Used to create wireframes.
 
+Flask - Used to create the backend for the website.
+
+Jinja - Used to create the dynamic pages for the website.
+
+Heroku - Used to deploy the website.
+
+PostgreSQL - Used to store the data for the website.
+
 Git - For version control.
 
 Github - To save and store the files for the website.
 
-Bootstrap Version 4.6 - The framework for the website. Code for the navigation bar, cards and form were used and modified. Additional CSS styling was also implemented in style.css.
+Materialize - Used to create the navigation bar, cards and form.
 
 Google Dev Tools - To troubleshoot and test features and solve issues with responsiveness and styling.
 
@@ -131,16 +141,36 @@ Fontawesome - For icons.
 
 ### Deployment
 
-The site is deployed using GitHub Pages - [FlavorVault](https://ethanpeters96.github.io/FlavorWave/)
+The site is deployed using Heroku - [FlavorVault](#)
 
-To Deploy the site using GitHub Pages:
+To Deploy the site using Heroku:
 
-1. Login (or sign up) to Github.
-2. Go to the repository for this project, [FlavorVault](https://github.com/EthanPeters96/FlavorWave).
-3. Click the settings button.
-4. Select pages in the left hand navigation menu.
-5. From the source dropdown select main branch and press save.
-6. The site has now been deployed, please note that this process may take a few minutes before the site goes live.
+1. Create a `requirements.txt` file using the terminal command `pip freeze > requirements.txt`
+
+2. Create a `Procfile` with the terminal command `echo web: python app.py > Procfile`
+
+3. Login to Heroku and create a new app by clicking "New" and "Create new app"
+
+4. Choose a name for your app (must be unique) and select your region
+
+5. From the deploy tab on Heroku:
+
+    - Select "Connect to GitHub" as the deployment method
+    - Search for your repository name and click "Connect"
+    - Scroll to the bottom of the deploy page and select "Enable Automatic Deploys"
+
+6. Set up your environment variables in Heroku:
+
+    - Click the settings tab
+    - Click "Reveal Config Vars"
+    - Add any necessary environment variables (e.g., SECRET_KEY, DATABASE_URL)
+
+7. Push these changes to your GitHub repository: `bash
+git add . 
+git commit -m "Deployment: Add requirements.txt and Procfile"
+git push   `
+
+8. Your app will now be deployed to Heroku and will update automatically each time you push changes to GitHub
 
 ### Local Development
 
@@ -149,7 +179,7 @@ To Deploy the site using GitHub Pages:
 To fork the repository:
 
 1. Log in (or sign up) to Github.
-2. Go to the repository for this project, [FlavorVault](https://github.com/EthanPeters96/FlavorWave)
+2. Go to the repository for this project, [FlavorVault](#)
 3. Click the Fork button in the top right corner.
 
 #### How to Clone
@@ -157,7 +187,7 @@ To fork the repository:
 To clone the repository:
 
 1. Log in (or sign up) to GitHub.
-2. Go to the repository for this project, [FlavorVault](https://github.com/EthanPeters96/FlavorWave)
+2. Go to the repository for this project, [FlavorVault](#)
 3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
 4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
@@ -166,20 +196,23 @@ To clone the repository:
 
 ### Manual Testing
 
-| Feature                      | Action                             | Expected result                              | Tested | Passed | Comments |
-| ---------------------------- | ---------------------------------- | -------------------------------------------- | ------ | ------ | -------- |
-| Navbar                       |                                    |                                              |        |        |          |
-| Home                         | Click on the "Home" link           | The user is redirected to the main page      | Yes    | Yes    | -        |
-| Recipes                      | Click on the "Recipes" link        | The user is redirected to the recipes page   | Yes    | Yes    | -        |
-| About                        | Click on the "About" link          | The user is redirected to the about page     | Yes    | Yes    | -        |
-| Contact                      | Click on the "Contact" link        | The user is redirected to the contact page   | Yes    | Yes    | -        |
-| Footer                       |                                    |                                              |        |        |          |
-| Instagram icon in the footer | Click on the "Instagram" icon      | The user is redirected to the Instagram page | Yes    | Yes    | -        |
-| Facebook icon in the footer  | Click on the "Facebook" icon       | The user is redirected to the Facebook page  | Yes    | Yes    | -        |
-| Recipes Page                 |                                    |                                              |        |        |          |
-| View Recipes                 | Click on the "View recipes" button | The user is redirected to the recipe page    | Yes    | Yes    | -        |
-| Thank You page               |                                    |                                              |        |        |          |
-| Thank You Message            | Automatic redirect                 | The user is redirected automatically         | Yes    | Yes    | -        |
+| Feature                      | Action                                | Expected result                                    | Tested | Passed | Comments |
+| ---------------------------- | ------------------------------------- | -------------------------------------------------- | ------ | ------ | -------- |
+| Navbar                       |                                       |                                                    |        |        |          |
+| Home                         | Click on the "Home" link              | The user is redirected to the main page            | Yes    | Yes    | -        |
+| Recipes                      | Click on the "Recipes" link           | The user is redirected to the recipes page         | Yes    | Yes    | -        |
+| About                        | Click on the "About" link             | The user is redirected to the about page           | Yes    | Yes    | -        |
+| Contact                      | Click on the "Contact" link           | The user is redirected to the contact page         | Yes    | Yes    | -        |
+| Footer                       |                                       |                                                    |        |        |          |
+| Instagram icon in the footer | Click on the "Instagram" icon         | The user is redirected to the Instagram page       | Yes    | Yes    | -        |
+| Facebook icon in the footer  | Click on the "Facebook" icon          | The user is redirected to the Facebook page        | Yes    | Yes    | -        |
+| Add Recipe                   | Click on the "Add Recipe" button      | The user is redirected to the add recipe page      | Yes    | Yes    | -        |
+| Edit Recipe                  | Click on the "Edit Recipe" button     | The user is redirected to the edit recipe page     | Yes    | Yes    | -        |
+| Delete Recipe                | Click on the "Delete Recipe" button   | The user is redirected to the delete recipe page   | Yes    | Yes    | -        |
+| Add Category                 | Click on the "Add Category" button    | The user is redirected to the add category page    | Yes    | Yes    | -        |
+| View Category                | Click on the "View Category" button   | The user is redirected to the view category page   | Yes    | Yes    | -        |
+| Edit Category                | Click on the "Edit Category" button   | The user is redirected to the edit category page   | Yes    | Yes    | -        |
+| Delete Category              | Click on the "Delete Category" button | The user is redirected to the delete category page | Yes    | Yes    | -        |
 
 The site was also tested using dev tools on Google Chrome for responsiveness.
 
@@ -193,27 +226,27 @@ I have tested my website using lighthouse.
 
 #### Home Page
 
-![Home Page](/assets/screenshots/home-lighthouse.png)
+![Home Page](#)
 
 #### Recipes Page
 
-![Recipes](/assets/screenshots/recipes-lighthouse.png)
+![Recipes](#)
 
 #### About Page
 
-![About](/assets/screenshots/about-lighthouse.png)
+![About](#)
 
 #### Contact Page
 
-![Contact](/assets/screenshots/contact-lighthouse.png)
+![Contact](#)
 
 #### Tacos Page
 
-![Tacos](/assets/screenshots/tacos-lighthouse.png)
+![Tacos](#)
 
 #### Carbonara Page
 
-![Carbonara](/assets/screenshots/carbonara-lighthouse.png)
+![Carbonara](#)
 
 ### Compatibility
 
@@ -225,21 +258,25 @@ I have used [W3C](https://www.w3.org/) to validate my code.
 
 ### HTML
 
-![HTML](/assets/screenshots/html-w3c.png)
+![HTML](#)
 
 Tested all pages.
 
 ### CSS
 
-![CSS](/assets/screenshots/css-val.png)
+![CSS](#)
 
 ## Credits
 
-I have used previous projects to help with this project. First being UCD-resume to help build a form using bootstrap.
+I have used previous projects to help with this project
 
-I also referred to bootstrap docs to learn new ways to style my page.
+[flask-sqlalchemy-task-manager](https://github.com/EthanPeters96/flask-sqlalchemy-task-manager)
 
-I followed some guidance from my mentor and added a thank you page.
+[Flask-WTF](https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/)
+
+I also referred to [Materialize](https://materializecss.com/) docs to learn new ways to style my page.
+
+I followed some guidance from my mentor [Graeme Taylor](https://github.com/G-Taylor).
 
 ### Media
 
