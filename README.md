@@ -125,7 +125,11 @@ Jinja - Used to create the dynamic pages for the website.
 
 Heroku - Used to deploy the website.
 
-PostgreSQL - Used to store the data for the website.
+MongoDB - Used to store the data for the website.
+
+dnspython - Used to connect to the database.
+
+pymongo - Used to interact with the database.
 
 Git - For version control.
 
