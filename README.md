@@ -39,6 +39,8 @@ The site is designed to be a simple and easy to use recipe database that allows 
 
 I used the site [coolors](https://coolors.co/palette/ccd5ae-e9edc9-fefae0-faedcd-d4a373) for the color scheme, I think these colors complement the purpose of the site well.
 
+![Color Scheme](/assets/screenshots/coolors.png)
+
 ### Imagery
 
 I have used high quality images of food to compliment the site, all my images are sourced from [unsplash](https://unsplash.com/images/stock).
