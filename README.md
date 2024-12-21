@@ -129,6 +129,10 @@ MongoDB - Used to store the data for the website.
 
 dnspython - Used to connect to the database.
 
+jQuery - Used to make the site more interactive.
+
+Font Awesome - For icons.
+
 pymongo - Used to interact with the database.
 
 Git - For version control.
