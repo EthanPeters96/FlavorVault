@@ -13,6 +13,11 @@
     background-color: #343a40;
 }
 
+/* Collapsible header color */
+.collapsible-header {
+    background-color: #343a40;
+}
+
 /* Menu icon color */
 .sidenav-trigger .fa-bars {
     color: #ef6c00; /* orange darken-3 */
