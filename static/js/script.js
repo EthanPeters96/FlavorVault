@@ -1,5 +1,11 @@
+// Sidenav
 $(document).ready(function () {
     $(".sidenav").sidenav({ edge: "right" });
+});
+
+// Collapsible
+$(document).ready(function () {
+    $(".collapsible").collapsible();
 });
 
 // Remove flash messages after 3 seconds
