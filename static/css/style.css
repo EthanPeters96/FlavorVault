@@ -1,20 +1,28 @@
+/* Text shadow for the register title */
 .text-shadow {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Navbar background color */
 .nav-extended {
     background-color: #343a40;
 }
 
+/* Menu icon color */
 .sidenav {
     background-color: #343a40;
 }
 
+/* Menu icon color */
 .sidenav-trigger .fa-bars {
     color: #ef6c00; /* orange darken-3 */
 }
 
-/* Optional hover effect */
+/* Hover effect for the menu icon */
 .sidenav-trigger .fa-bars:hover {
     color: #ff9800; /* lighter orange on hover */
+}
+
+#register-title {
+    font-weight: bold;
 }
