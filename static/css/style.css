@@ -20,12 +20,17 @@
 
 /* Menu icon color */
 .sidenav-trigger .fa-bars {
-    color: #ef6c00; /* orange darken-3 */
+    color: #ef6c00;
 }
 
 /* Hover effect for the menu icon */
 .sidenav-trigger .fa-bars:hover {
-    color: #ff9800; /* lighter orange on hover */
+    color: #ff9800;
+}
+
+/* Title Styling */
+#add-recipe-title {
+    font-weight: bold;
 }
 
 #register-title {
@@ -36,11 +41,15 @@
     font-weight: bold;
 }
 
+#recipes-title {
+    font-weight: bold;
+}
+
+/* Flash Messages */
 .flashes {
     line-height: 2;
 }
 
-/* Flash Messages */
 .flashes h4 {
     line-height: 2;
     background-color: #ef6c00; /* orange darken-3 */
@@ -52,7 +61,7 @@
     transition: opacity 0.5s ease-in-out;
 }
 
-/* Optional animation for flash messages */
+/* Animation for flash messages */
 .flashes h4 {
     animation: fadeIn 0.5s ease-in;
 }

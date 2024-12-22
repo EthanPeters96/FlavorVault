@@ -1,3 +1,4 @@
 templates/recipes.html
 templates/base.html
 templates/task.html
+templates/add_recipe.html
