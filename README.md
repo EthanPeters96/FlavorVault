@@ -2,7 +2,7 @@
 
 Welcome to FlavorVault, the ultimate recipe database for all ages. Discover easy, delicious recipes that make cooking fun and accessible. From quick weeknight dinners to impressive dishes for special occasions, FlavorVault has something for everyone. Join our community and start your culinary adventure today!
 
-### Link to live site : [FlavorVault](#)
+### Link to live site : [FlavorVault](https://flavorvault-d681a47fade4.herokuapp.com)
 
 ## User Experience (UX)
 
@@ -151,7 +151,7 @@ Fontawesome - For icons.
 
 ### Deployment
 
-The site is deployed using Heroku - [FlavorVault](#)
+The site is deployed using Heroku - [FlavorVault](https://flavorvault-d681a47fade4.herokuapp.com)
 
 To Deploy the site using Heroku:
 
@@ -189,7 +189,7 @@ git push   `
 To fork the repository:
 
 1. Log in (or sign up) to Github.
-2. Go to the repository for this project, [FlavorVault](#)
+2. Go to the repository for this project, [FlavorVault](https://github.com/EthanPeters96/FlavorVault)
 3. Click the Fork button in the top right corner.
 
 #### How to Clone
@@ -197,7 +197,7 @@ To fork the repository:
 To clone the repository:
 
 1. Log in (or sign up) to GitHub.
-2. Go to the repository for this project, [FlavorVault](#)
+2. Go to the repository for this project, [FlavorVault](https://github.com/EthanPeters96/FlavorVault)
 3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
 4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
@@ -280,7 +280,7 @@ Tested all pages.
 
 I have used previous projects to help with this project
 
-[flask-sqlalchemy-task-manager](https://github.com/EthanPeters96/flask-sqlalchemy-task-manager)
+[flask-task-manager](https://github.com/Code-Institute-Solutions/TaskManagerAuth)
 
 [Flask-WTF](https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/)
 
@@ -290,7 +290,7 @@ I followed some guidance from my mentor [Graeme Taylor](https://github.com/G-Tay
 
 ### Media
 
-All images are sourced from [Usplash](https://unsplash.com/).
+Stock images are sourced from [Usplash](https://unsplash.com/).
 
 ### Acknowledgments
 
