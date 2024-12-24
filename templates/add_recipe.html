@@ -6,7 +6,8 @@
 </h3>
 
 <div class="row card-panel grey lighten-5">
-    <form class="col s12" method="POST" action="#">
+    <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
+        <!-- Recipe Category -->
         <div class="row">
             <div class="input-field col s8 offset-s2">
                 <i class="fa-solid fa-folder-open prefix amber-text text-darken-3"></i>
@@ -19,6 +20,7 @@
                 <label for="category_name">Recipe Category</label>
             </div>
         </div>
+        <!-- Recipe Name -->
         <div class="row">
             <div class="input-field col s8 offset-s2">
                 <i class="fa-solid fa-bowl-food prefix amber-text text-darken-3"></i>
@@ -27,6 +29,7 @@
                 <label for="recipe_name">Recipe Name</label>
             </div>
         </div>
+        <!-- Recipe Description -->
         <div class="row">
             <div class="input-field col s8 offset-s2">
                 <i class="fas fa-book-open prefix amber-text text-darken-3"></i>
@@ -35,6 +38,7 @@
                 <label for="recipe_description">Recipe Description</label>
             </div>
         </div>
+        <!-- Recipe Date -->
         <div class="row">
             <div class="input-field col s8 offset-s2">
                 <i class="fas fa-calendar-alt prefix amber-text text-darken-3"></i>
@@ -42,6 +46,7 @@
                 <label for="date_added">Recipe Date</label>
             </div>
         </div>
+        <!-- Healthy Recipe Switch -->
         <div class="row">
             <div class="input-field col s8 offset-s2">
                 <!-- Switch -->
@@ -53,6 +58,14 @@
                         Healthy
                     </label>
                 </div>
+            </div>
+        </div>
+        <!-- Add Recipe Submit Button -->
+        <div class="row">
+            <div class="col s10 offset-s1 center-align">
+                <button type="submit" class="btn-large amber darken-3 text-shadow">
+                    Add Recipe<i class="fa-solid fa-plus right"></i>
+                </button>
             </div>
         </div>
     </form>
