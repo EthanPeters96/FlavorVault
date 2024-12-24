@@ -18,6 +18,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+# Get recipes
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
@@ -25,6 +26,7 @@ def get_recipes():
     return render_template("recipes.html", recipes=recipes)
 
 
+# Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -49,6 +51,7 @@ def register():
     return render_template("register.html")
 
 
+# Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -74,6 +77,7 @@ def login():
     return render_template("login.html")
 
 
+# Profile
 @app.route("/profile/<username>")
 def profile(username):
     # Get the session user's username from the database
@@ -85,6 +89,7 @@ def profile(username):
         return redirect(url_for("login"))
     
 
+# Logout
 @app.route("/logout")
 def logout():
     # Remove the user from the session cookie
@@ -93,6 +98,7 @@ def logout():
     return redirect(url_for("login"))
 
 
+# Add a recipe
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
@@ -111,12 +117,14 @@ def add_recipe():
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe Successfully Added")
         return redirect(url_for("get_recipes"))
+    
         
     # GET method - display the form
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("add_recipe.html", categories=categories)
 
 
+# Run the app
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
