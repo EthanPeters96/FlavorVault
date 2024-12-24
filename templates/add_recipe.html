@@ -9,6 +9,18 @@
     <form class="col s12" method="POST" action="#">
         <div class="row">
             <div class="input-field col s8 offset-s2">
+                <i class="fa-solid fa-folder-open prefix amber-text text-darken-3"></i>
+                <select id="category_name" name="category_name" class="validate" required>
+                    <option value="" disabled selected>Choose Category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="category_name">Recipe Category</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s8 offset-s2">
                 <i class="fa-solid fa-bowl-food prefix amber-text text-darken-3"></i>
                 <input id="recipe_name" name="recipe_name" minlength="3" maxlength="50" type="text" class="validate"
                     required>

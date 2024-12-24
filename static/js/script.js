@@ -20,6 +20,11 @@ $(document).ready(function () {
     });
 });
 
+// Select
+$(document).ready(function () {
+    $("select").formSelect();
+});
+
 // Remove flash messages after 3 seconds
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
