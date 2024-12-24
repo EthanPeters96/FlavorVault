@@ -8,6 +8,18 @@ $(document).ready(function () {
     $(".collapsible").collapsible();
 });
 
+// Datepicker
+$(document).ready(function () {
+    $(".datepicker").datepicker({
+        format: "dd mmmm, yyyy",
+        yearRange: 5,
+        showClearBtn: true,
+        i18n: {
+            done: "Select",
+        },
+    });
+});
+
 // Remove flash messages after 3 seconds
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
