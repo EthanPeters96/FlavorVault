@@ -9,8 +9,14 @@
     {% for recipe in recipes %}
     <li>
         <div class="collapsible-header amber-text text-darken-3">
-            <i class="fas fa-caret-down"></i>
-            <strong>{{ recipe.recipe_name }}</strong>
+            <div class="col s3">
+                <i class="fas fa-caret-down"></i>
+                <a href="#" class="btn-small amber accent-4">Done</a>
+                <a href="#" class="btn-small black lighten-1">Edit</a>
+            </div>
+            <div class="col s9">
+                <strong>{{ recipe.recipe_name }}</strong>
+            </div>
         </div>
         <div class="collapsible-body">
             <span>
