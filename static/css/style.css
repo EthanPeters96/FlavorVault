@@ -45,6 +45,10 @@
     font-weight: bold;
 }
 
+#page-heading {
+    font-weight: bold;
+}
+
 /* Flash Messages */
 .flashes {
     line-height: 2;
@@ -80,6 +84,17 @@
 /* Button Styling */
 .btn-small {
     margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .collapsible-header .col strong {

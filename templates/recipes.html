@@ -11,8 +11,8 @@
         <div class="collapsible-header amber-text text-darken-3">
             <div class="col s3">
                 <i class="fas fa-caret-down"></i>
-                <a href="#" class="btn-small amber accent-4">Done</a>
-                <a href="#" class="btn-small black lighten-1">Edit</a>
+                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small amber accent-4">Edit</a>
+                <a href="#" class="btn-small black">Delete</a>
             </div>
             <div class="col s9">
                 <strong>{{ recipe.recipe_name }}</strong>
