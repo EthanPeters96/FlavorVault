@@ -183,6 +183,24 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
+# Manage Categories
+@app.route("/categories")
+def categories():
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    return render_template("categories.html", categories=categories)
+
+
+# Add a category
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+    if request.method == "POST":
+        category = {"category_name": request.form.get("category_name")}
+        mongo.db.categories.insert_one(category)
+        flash("Category Successfully Added")
+        return redirect(url_for("categories"))
+    return render_template("add_category.html")
+
+
 # Run the app
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

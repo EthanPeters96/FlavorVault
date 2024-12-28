@@ -29,7 +29,10 @@
                     <li><a href="{{ url_for('profile', username=session['user']) }}"
                             class="amber-text text-darken-3">Profile</a></li>
                     <li><a href="{{ url_for('add_recipe') }}" class="amber-text text-darken-3">New Recipe</a></li>
-                    <li><a href="#" class="amber-text text-darken-3">Manage Categories</a></li>
+                    {% if session.user.lower() == "admin" %}
+                    <li><a href="{{ url_for('categories') }}" class="amber-text text-darken-3">Manage Categories</a>
+                    </li>
+                    {% endif %}
                     <li><a href="{{ url_for('logout') }}" class="amber-text text-darken-3">Log Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login') }}" class="amber-text text-darken-3">Log In</a></li>
@@ -49,7 +52,9 @@
             <li><a href="{{ url_for('profile', username=session['user']) }}"
                     class="amber-text text-darken-3">Profile</a></li>
             <li><a href="{{ url_for('add_recipe') }}" class="amber-text text-darken-3">New Recipe</a></li>
-            <li><a href="#" class="amber-text text-darken-3">Manage Categories</a></li>
+            {% if session.user.lower() == "admin" %}
+            <li><a href="{{ url_for('categories') }}" class="amber-text text-darken-3">Manage Categories</a></li>
+            {% endif %}
             <li><a href="{{ url_for('logout') }}" class="amber-text text-darken-3">Log Out</a></li>
             {% else %}
             <li><a href="{{ url_for('login') }}" class="amber-text text-darken-3">Log In</a></li>
