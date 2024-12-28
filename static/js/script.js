@@ -100,9 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
 });
 
-// Add event listeners to Edit and Delete buttons in recipe collapsibles
+// Add event listeners to Edit and Delete buttons in recipe collapsible
 document.addEventListener("DOMContentLoaded", function () {
-    const editButtons = document.querySelectorAll(".collapsible-header .amber.accent-4");
+    const editButtons = document.querySelectorAll(".collapsible-header .amber.darken-3");
     const deleteButtons = document.querySelectorAll(".collapsible-header .black");
 
     // Stop propagation for Edit buttons
@@ -143,6 +143,28 @@ document.addEventListener("DOMContentLoaded", function () {
     confirmDeleteBtn.addEventListener("click", function () {
         if (deleteUrl) {
             window.location.href = deleteUrl;
+        }
+    });
+});
+
+// Handle category deletion confirmation
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteCategoryButtons = document.querySelectorAll(".delete-category");
+    const confirmDeleteCategoryBtn = document.getElementById("confirmDeleteCategory");
+    let deleteCategoryUrl = "";
+
+    deleteCategoryButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+            deleteCategoryUrl = this.getAttribute("href");
+            const modal = M.Modal.getInstance(document.getElementById("deleteCategoryModal"));
+            modal.open();
+        });
+    });
+
+    confirmDeleteCategoryBtn.addEventListener("click", function () {
+        if (deleteCategoryUrl) {
+            window.location.href = deleteCategoryUrl;
         }
     });
 });

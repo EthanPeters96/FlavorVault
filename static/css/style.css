@@ -38,6 +38,10 @@
     font-weight: bold;
 }
 
+#edit-category-title {
+    font-weight: bold;
+}
+
 #register-title {
     font-weight: bold;
 }
@@ -61,17 +65,20 @@
 /* Flash Messages */
 .flashes {
     line-height: 2;
+    margin-top: 20px;
 }
 
 .flashes h4 {
     line-height: 2;
-    background-color: #ef6c00; /* orange darken-3 */
+    background-color: #ef6c00;
     color: white;
     border-radius: 5px;
     padding: 1rem;
     margin: 1rem 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+    position: relative;
 }
 
 /* Animation for flash messages */

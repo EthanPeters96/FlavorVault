@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 if os.path.exists("env.py"):
     import env
 
@@ -16,6 +17,18 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get("user"):
+            flash("Please log in to access this page")
+            return redirect(url_for("login"))
+        if session["user"].lower() != "admin":
+            flash("This page is accessible only to administrators")
+            return redirect(url_for("get_recipes"))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 # Get recipes
@@ -30,24 +43,43 @@ def get_recipes():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # Check if the username already exists
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-        # Check if the email already exists
-        if existing_user:
-            flash("Username already exists")
-            # Redirect to the register page
+        username = request.form.get("username", "").lower().strip()
+        password = request.form.get("password", "")
+        
+        
+        # Input validation
+        if not username or not password:
+            flash("Please fill in all fields")
             return redirect(url_for("register"))
-        # Register the user
-        register = {
-            "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
-        }
-        mongo.db.users.insert_one(register)
-        #put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
-        return redirect(url_for("profile", username=session["user"]))
+            
+        if len(username) < 3 or len(username) > 20:
+            flash("Username must be between 3 and 20 characters")
+            return redirect(url_for("register"))
+            
+        if len(password) < 6:
+            flash("Password must be at least 6 characters")
+            return redirect(url_for("register"))
+
+        try:
+            existing_user = mongo.db.users.find_one({"username": username})
+            
+            if existing_user:
+                flash("Username already exists")
+                return redirect(url_for("register"))
+                
+            register = {
+                "username": username,
+                "password": generate_password_hash(password)
+            }
+            mongo.db.users.insert_one(register)
+            session["user"] = username
+            flash("Registration Successful!")
+            return redirect(url_for("profile", username=session["user"]))
+            
+        except Exception as e:
+            flash("An error occurred during registration. Please try again.")
+            return redirect(url_for("register"))
+            
     return render_template("register.html")
 
 
@@ -80,13 +112,22 @@ def login():
 # Profile
 @app.route("/profile/<username>")
 def profile(username):
-    # Get the session user's username from the database
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    if session["user"]:
-        return render_template("profile.html", username=username)
-    else:
+    if not session.get("user"):
+        flash("Please log in to view profiles")
         return redirect(url_for("login"))
+        
+    try:
+        user = mongo.db.users.find_one({"username": session["user"]})
+        if not user:
+            session.pop("user")
+            flash("User not found")
+            return redirect(url_for("login"))
+            
+        return render_template("profile.html", username=user["username"])
+        
+    except Exception as e:
+        flash("An error occurred while loading the profile. Please try again.")
+        return redirect(url_for("get_recipes"))
     
 
 # Logout
@@ -101,26 +142,47 @@ def logout():
 # Add a recipe
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    if not session.get("user"):
+        flash("Please log in to add recipes")
+        return redirect(url_for("login"))
+
     if request.method == "POST":
-        # Create the recipe dictionary from form data
-        healthy = "on" if request.form.get("healthy") else "off"
-        recipe = {
-            "category_name": request.form.get("category_name"),
-            "recipe_name": request.form.get("recipe_name"),
-            "recipe_description": request.form.get("recipe_description"),
-            "date_added": request.form.get("date_added"),
-            "healthy": healthy,
-            "created_by": session["user"]  # Add the username of the person creating the recipe
-        }
-        
-        # Insert the recipe into the database
-        mongo.db.recipes.insert_one(recipe)
-        flash("Recipe Successfully Added")
-        return redirect(url_for("get_recipes"))
+        recipe_name = request.form.get("recipe_name", "").strip()
+        recipe_description = request.form.get("recipe_description", "").strip()
+        category_name = request.form.get("category_name")
+
+        # Input validation
+        if not recipe_name or not recipe_description or not category_name:
+            flash("Please fill in all required fields")
+            categories = list(mongo.db.categories.find().sort("category_name", 1))
+            return render_template("add_recipe.html", categories=categories)
+
+        try:
+            healthy = "on" if request.form.get("healthy") else "off"
+            recipe = {
+                "category_name": category_name,
+                "recipe_name": recipe_name,
+                "recipe_description": recipe_description,
+                "date_added": request.form.get("date_added"),
+                "healthy": healthy,
+                "created_by": session["user"]
+            }
+            
+            mongo.db.recipes.insert_one(recipe)
+            flash("Recipe Successfully Added")
+            return redirect(url_for("get_recipes"))
+            
+        except Exception as e:
+            flash("An error occurred while adding the recipe. Please try again.")
+            categories = list(mongo.db.categories.find().sort("category_name", 1))
+            return render_template("add_recipe.html", categories=categories)
     
-    # GET method - display the form
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("add_recipe.html", categories=categories)
+    try:
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        return render_template("add_recipe.html", categories=categories)
+    except Exception as e:
+        flash("An error occurred while loading categories. Please try again.")
+        return redirect(url_for("get_recipes"))
 
 
 # Edit a recipe
@@ -185,20 +247,65 @@ def delete_recipe(recipe_id):
 
 # Manage Categories
 @app.route("/categories")
+@admin_required
 def categories():
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("categories.html", categories=categories)
+    try:
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        return render_template("categories.html", categories=categories)
+    except Exception as e:
+        flash("An error occurred while loading categories. Please try again.")
+        return redirect(url_for("get_recipes"))
 
 
 # Add a category
 @app.route("/add_category", methods=["GET", "POST"])
+@admin_required
 def add_category():
     if request.method == "POST":
-        category = {"category_name": request.form.get("category_name")}
-        mongo.db.categories.insert_one(category)
-        flash("Category Successfully Added")
-        return redirect(url_for("categories"))
+        category_name = request.form.get("category_name", "").strip()
+        
+        if not category_name:
+            flash("Please enter a category name")
+            return redirect(url_for("add_category"))
+            
+        try:
+            # Check if category already exists
+            existing_category = mongo.db.categories.find_one(
+                {"category_name": category_name})
+            if existing_category:
+                flash("Category already exists")
+                return redirect(url_for("add_category"))
+                
+            category = {"category_name": category_name}
+            mongo.db.categories.insert_one(category)
+            flash("Category Successfully Added")
+            return redirect(url_for("categories"))
+            
+        except Exception as e:
+            flash("An error occurred while adding the category. Please try again.")
+            return redirect(url_for("add_category"))
+            
     return render_template("add_category.html")
+
+
+# Edit a category
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        submit = {"category_name": request.form.get("category_name")}
+        mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {"$set": submit})
+        flash("Category Successfully Updated")
+        return redirect(url_for("categories"))
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template("edit_category.html", category=category)
+
+
+# Delete a category
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+    flash("Category Successfully Deleted")
+    return redirect(url_for("categories"))
 
 
 # Run the app
@@ -206,3 +313,4 @@ if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
+

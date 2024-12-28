@@ -6,14 +6,6 @@
 </h3>
 
 <div class="row">
-    <div class="col s12 center-align">
-        <a href="{{ url_for('add_category') }}" class="btn-large amber darken-3 text-shadow">
-            Add Category<i class="fa-solid fa-plus right"></i>
-        </a>
-    </div>
-</div>
-
-<div class="row">
     {% for category in categories %}
     <div class="col s12 m4">
         <div class="card center-align text-shadow">
@@ -21,12 +13,34 @@
                 <span class="card-title">{{ category.category_name }}</span>
             </div>
             <div class="card-action">
-                <a href="#" class="btn-small amber accent-4">Edit</a>
-                <a href="#" class="btn-small black delete-category">Delete</a>
+                <a href="{{ url_for('delete_category', category_id=category._id) }}"
+                    class="btn-small black delete-category">Delete</a>
+                <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                    class="btn-small amber darken-3">Edit</a>
             </div>
         </div>
     </div>
     {% endfor %}
+</div>
+
+<div class="row">
+    <div class="col s12 center-align">
+        <a href="{{ url_for('add_category') }}" class="btn-large amber darken-3 text-shadow">
+            Add Category<i class="fa-solid fa-plus right"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteCategoryModal" class="modal">
+    <div class="modal-content">
+        <h4>Confirm Delete</h4>
+        <p>Are you sure you want to delete this category? This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close btn-flat">Cancel</a>
+        <a href="#!" id="confirmDeleteCategory" class="waves-effect waves-light btn-small black">Delete</a>
+    </div>
 </div>
 
 {% endblock %}
