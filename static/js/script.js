@@ -99,3 +99,50 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }, 3000);
 });
+
+// Add event listeners to Edit and Delete buttons in recipe collapsibles
+document.addEventListener("DOMContentLoaded", function () {
+    const editButtons = document.querySelectorAll(".collapsible-header .amber.accent-4");
+    const deleteButtons = document.querySelectorAll(".collapsible-header .black");
+
+    // Stop propagation for Edit buttons
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+    });
+
+    // Stop propagation for Delete buttons
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+    });
+});
+
+// Initialize Materialize Modal
+$(document).ready(function () {
+    $(".modal").modal();
+});
+
+// Handle recipe deletion confirmation
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButtons = document.querySelectorAll(".delete-recipe");
+    const confirmDeleteBtn = document.getElementById("confirmDelete");
+    let deleteUrl = "";
+
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+            deleteUrl = this.getAttribute("href");
+            const modal = M.Modal.getInstance(document.getElementById("deleteModal"));
+            modal.open();
+        });
+    });
+
+    confirmDeleteBtn.addEventListener("click", function () {
+        if (deleteUrl) {
+            window.location.href = deleteUrl;
+        }
+    });
+});

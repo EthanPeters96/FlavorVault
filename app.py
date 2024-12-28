@@ -118,7 +118,6 @@ def add_recipe():
         flash("Recipe Successfully Added")
         return redirect(url_for("get_recipes"))
     
-        
     # GET method - display the form
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("add_recipe.html", categories=categories)
@@ -128,8 +127,61 @@ def add_recipe():
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if not session.get("user"):
+        flash("Please log in to edit recipes")
+        return redirect(url_for("login"))
+    
+    if session["user"].lower() != recipe["created_by"].lower() and session["user"].lower() != "admin":
+        flash("You can only edit your own recipes!")
+        return redirect(url_for("get_recipes"))
+
+    if request.method == "POST":
+        # Create the recipe dictionary from form data
+        healthy = "on" if request.form.get("healthy") else "off"
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "recipe_name": request.form.get("recipe_name"),
+            "recipe_description": request.form.get("recipe_description"),
+            "date_added": request.form.get("date_added"),
+            "healthy": healthy,
+            "created_by": recipe["created_by"]  # Preserve original creator
+        }
+        # Update the recipe in the database
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": submit})
+        flash("Recipe Successfully Updated")
+        return redirect(url_for("get_recipes"))
+    
+    # GET method - display the form
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("edit_recipe.html", recipe=recipe, categories=categories)
+
+
+# Delete a recipe
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    # Check if user is logged in
+    if not session.get("user"):
+        flash("Please log in to delete recipes")
+        return redirect(url_for("login"))
+    
+    # Get the recipe
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    
+    # Check if recipe exists
+    if not recipe:
+        flash("Recipe not found")
+        return redirect(url_for("get_recipes"))
+    
+    # Check if user has permission to delete
+    if session["user"].lower() != recipe["created_by"].lower() and session["user"].lower() != "admin":
+        flash("You can only delete your own recipes!")
+        return redirect(url_for("get_recipes"))
+    
+    # Delete the recipe
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe Successfully Deleted")
+    return redirect(url_for("get_recipes"))
+
 
 # Run the app
 if __name__ == "__main__":
