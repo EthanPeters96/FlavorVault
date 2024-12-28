@@ -123,6 +123,10 @@ Balsamiq - Used to create wireframes.
 
 Flask - Used to create the backend for the website.
 
+Flask-WTF - Used to create the forms for the website.
+
+Flask-Login - Used to create the login system for the website.
+
 Jinja - Used to create the dynamic pages for the website.
 
 Heroku - Used to deploy the website.
@@ -206,23 +210,25 @@ To clone the repository:
 
 ### Manual Testing
 
-| Feature                      | Action                                | Expected result                                    | Tested | Passed | Comments |
-| ---------------------------- | ------------------------------------- | -------------------------------------------------- | ------ | ------ | -------- |
-| Navbar                       |                                       |                                                    |        |        |          |
-| Home                         | Click on the "Home" link              | The user is redirected to the main page            | Yes    | Yes    | -        |
-| Recipes                      | Click on the "Recipes" link           | The user is redirected to the recipes page         | Yes    | Yes    | -        |
-| About                        | Click on the "About" link             | The user is redirected to the about page           | Yes    | Yes    | -        |
-| Contact                      | Click on the "Contact" link           | The user is redirected to the contact page         | Yes    | Yes    | -        |
-| Footer                       |                                       |                                                    |        |        |          |
-| Instagram icon in the footer | Click on the "Instagram" icon         | The user is redirected to the Instagram page       | Yes    | Yes    | -        |
-| Facebook icon in the footer  | Click on the "Facebook" icon          | The user is redirected to the Facebook page        | Yes    | Yes    | -        |
-| Add Recipe                   | Click on the "Add Recipe" button      | The user is redirected to the add recipe page      | Yes    | Yes    | -        |
-| Edit Recipe                  | Click on the "Edit Recipe" button     | The user is redirected to the edit recipe page     | Yes    | Yes    | -        |
-| Delete Recipe                | Click on the "Delete Recipe" button   | The user is redirected to the delete recipe page   | Yes    | Yes    | -        |
-| Add Category                 | Click on the "Add Category" button    | The user is redirected to the add category page    | Yes    | Yes    | -        |
-| View Category                | Click on the "View Category" button   | The user is redirected to the view category page   | Yes    | Yes    | -        |
-| Edit Category                | Click on the "Edit Category" button   | The user is redirected to the edit category page   | Yes    | Yes    | -        |
-| Delete Category              | Click on the "Delete Category" button | The user is redirected to the delete category page | Yes    | Yes    | -        |
+| Feature         | Action                                | Expected result                                   | Tested | Passed | Comments |
+| --------------- | ------------------------------------- | ------------------------------------------------- | ------ | ------ | -------- |
+| Home            | Click on the "Home" link              | The user is redirected to the main page           | Yes    | Yes    | -        |
+| New Recipes     | Click on the "New Recipes" link       | The user is redirected to the recipes page        | Yes    | Yes    | -        |
+| Login           | Click on the "Login" link             | The user is redirected to the login page          | Yes    | Yes    | -        |
+| Register        | Click on the "Register" link          | The user is redirected to the register page       | Yes    | Yes    | -        |
+| Logout          | Click on the "Logout" link            | The user is redirected to the logout page         | Yes    | Yes    | -        |
+| Profile         | Click on the "Profile" link           | The user is redirected to the profile page        | Yes    | Yes    | -        |
+| Add Recipe      | Click on the "Add Recipe" button      | The user is redirected to the add recipe page     | Yes    | Yes    | -        |
+| Edit Recipe     | Click on the "Edit Recipe" button     | The user is redirected to the edit recipe page    | Yes    | Yes    | -        |
+| Delete Recipe   | Click on the "Delete" button          | Modal appears asking for confirmation             | Yes    | Yes    | -        |
+| Delete Recipe   | Click "Cancel" in delete modal        | Modal closes, recipe is not deleted               | Yes    | Yes    | -        |
+| Delete Recipe   | Click "Delete" in delete modal        | Recipe is deleted and user sees success message   | Yes    | Yes    | -        |
+| Add Category    | Click on the "Add Category" button    | The user is redirected to the add category page   | Yes    | Yes    | -        |
+| View Category   | Click on the "View Category" button   | The user is redirected to the view category page  | Yes    | Yes    | -        |
+| Edit Category   | Click on the "Edit Category" button   | The user is redirected to the edit category page  | Yes    | Yes    | -        |
+| Delete Category | Click on the "Delete Category" button | Modal appears asking for confirmation             | Yes    | Yes    | -        |
+| Delete Category | Click "Cancel" in delete modal        | Modal closes, category is not deleted             | Yes    | Yes    | -        |
+| Delete Category | Click "Delete" in delete modal        | Category is deleted and user sees success message | Yes    | Yes    | -        |
 
 The site was also tested using dev tools on Google Chrome for responsiveness.
 

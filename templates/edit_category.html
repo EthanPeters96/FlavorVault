@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Edit Category Title -->
 <h3 id="edit-category-title" class="amber-text text-darken-3 center-align">
     Edit Category
 </h3>
 
+<!-- Edit Category Form -->
 <div class="row card-panel grey lighten-5">
     <form class="col s12" method="POST" action="{{ url_for('edit_category', category_id=category._id) }}">
         <!-- Category Name -->

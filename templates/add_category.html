@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Add Category Title -->
 <h3 id="add-recipe-title" class="amber-text text-darken-3 center-align">
     Add Category
 </h3>
 
+<!-- Add Category Form -->
 <div class="row card-panel grey lighten-5">
     <form class="col s12" method="POST" action="{{ url_for('add_category') }}">
         <!-- Category Name -->
@@ -16,6 +18,7 @@
                 <label for="category_name">Category Name</label>
             </div>
         </div>
+
         <!-- Add Category Submit Button -->
         <div class="row">
             <div class="col s10 offset-s1 center-align">

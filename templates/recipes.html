@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Recipes Title -->
 <h3 id="recipes-title" class="amber-text text-darken-3 center-align">
     Recipes
 </h3>
 
+<!-- Recipes List -->
 <ul class="collapsible popout">
     {% for recipe in recipes %}
     <li>
@@ -21,6 +23,7 @@
                 <strong>{{ recipe.recipe_name }}</strong>
             </div>
         </div>
+        <!-- Recipe Details -->
         <div class="collapsible-body">
             <span>
                 <strong>{{ recipe.category_name }}</strong>
