@@ -192,6 +192,12 @@ To clone the repository:
 
 ## Testing
 
+### Jest Testing
+
+I have written a testing script using jest, the test pass
+
+![Jest](/assets/screenshots/jest.png)
+
 ### Manual Testing
 
 | Feature         | Action                                | Expected result                                   | Tested | Passed | Comments |
