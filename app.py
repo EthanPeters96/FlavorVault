@@ -39,6 +39,14 @@ LOGOUT_MSG = "You have been logged out"
 PROFILE_ACCESS_ERROR_MSG = "Please log in to view profiles"
 RECIPE_ACCESS_ERROR_MSG = "Please log in to add recipes"
 CATEGORY_ACCESS_ERROR_MSG = "Please enter a category name"
+CATEGORY_DELETE_ERROR_MSG = "Cannot delete category that contains recipes"
+CATEGORY_NOT_FOUND_MSG = "Category not found"
+ADMIN_ACCESS_ERROR_MSG = "This page is accessible only to administrators"
+USER_NOT_FOUND_MSG = "User not found"
+RECIPE_EDIT_ERROR_MSG = "You can only edit your own recipes!"
+RECIPE_NOT_FOUND_MSG = "Recipe not found"
+RECIPE_DELETE_ERROR_MSG = "You can only delete your own recipes!"
+CATEGORY_EXISTS_ERROR_MSG = "Category already exists"
 
 # Centralized error handler
 def handle_db_error(e=None):
@@ -51,10 +59,10 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get("user"):
-            flash("Please log in to access this page")
+            flash(PROFILE_ACCESS_ERROR_MSG)
             return redirect(url_for("login"))
         if session["user"].lower() != "admin":
-            flash("This page is accessible only to administrators")
+            flash(ADMIN_ACCESS_ERROR_MSG)
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
     return decorated_function
@@ -176,7 +184,7 @@ def profile(username):
         user = mongo.db.users.find_one({"username": session["user"]})
         if not user:
             session.pop("user")
-            flash("User not found")
+            flash(USER_NOT_FOUND_MSG)
             return redirect(url_for("login"))
             
         return render_template("profile.html", username=user["username"])
@@ -206,7 +214,7 @@ def add_recipe():
 
         # Input validation
         if not recipe_name or not recipe_description or not category_name:
-            flash("Please fill in all required fields")
+            flash(RECIPE_ACCESS_ERROR_MSG)
             categories = list(mongo.db.categories.find().sort("category_name", 1))
             return render_template("add_recipe.html", categories=categories)
 
@@ -239,11 +247,11 @@ def add_recipe():
 def edit_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if not session.get("user"):
-        flash("Please log in to edit recipes")
+        flash(RECIPE_ACCESS_ERROR_MSG)
         return redirect(url_for("login"))
     
     if session["user"].lower() != recipe["created_by"].lower() and session["user"].lower() != "admin":
-        flash("You can only edit your own recipes!")
+        flash(RECIPE_EDIT_ERROR_MSG)
         return redirect(url_for("get_recipes"))
 
     if request.method == "POST":
@@ -271,7 +279,7 @@ def edit_recipe(recipe_id):
 def delete_recipe(recipe_id):
     # Check if user is logged in
     if not session.get("user"):
-        flash("Please log in to delete recipes")
+        flash(RECIPE_ACCESS_ERROR_MSG)
         return redirect(url_for("login"))
     
     # Get the recipe
@@ -279,12 +287,12 @@ def delete_recipe(recipe_id):
     
     # Check if recipe exists
     if not recipe:
-        flash("Recipe not found")
+        flash(RECIPE_NOT_FOUND_MSG)
         return redirect(url_for("get_recipes"))
     
     # Check if user has permission to delete
     if session["user"].lower() != recipe["created_by"].lower() and session["user"].lower() != "admin":
-        flash("You can only delete your own recipes!")
+        flash(RECIPE_DELETE_ERROR_MSG)
         return redirect(url_for("get_recipes"))
     
     # Delete the recipe
@@ -318,7 +326,7 @@ def add_category():
             existing_category = mongo.db.categories.find_one(
                 {"category_name": category_name})
             if existing_category:
-                flash("Category already exists")
+                flash(CATEGORY_EXISTS_ERROR_MSG)
                 return redirect(url_for("add_category"))
                 
             category = {"category_name": category_name}
@@ -344,14 +352,33 @@ def edit_category(category_id):
 
 # Delete a category
 @app.route("/delete_category/<category_id>")
+@admin_required
 def delete_category(category_id):
-    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
-    flash(CATEGORY_DELETED_MSG)
+    try:
+        # Check if category exists
+        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        if not category:
+            flash(CATEGORY_NOT_FOUND_MSG)
+            return redirect(url_for("categories"))
+            
+        # Check for recipes using this category
+        recipes = list(mongo.db.recipes.find({"category_name": category["category_name"]}))
+        if recipes:
+            flash(CATEGORY_DELETE_ERROR_MSG.format(category_name=category['category_name'], recipe_count=len(recipes)))
+            return redirect(url_for("categories"))
+            
+        mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+        flash(CATEGORY_DELETED_MSG)
+    except Exception as e:
+        return handle_db_error(e)
     return redirect(url_for("categories"))
 
 # Run the app
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+    debug = os.environ.get("DEBUG", "False").lower() == "true"
+    app.run(
+        host=os.environ.get("IP", "0.0.0.0"),
+        port=int(os.environ.get("PORT", "5000")),
+        debug=debug
+    )
 
