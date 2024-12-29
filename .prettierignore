@@ -3,3 +3,6 @@ templates/base.html
 templates/task.html
 templates/add_recipe.html
 templates/edit_recipe.html
+templates/categories.html
+templates/add_category.html
+templates/edit_category.html

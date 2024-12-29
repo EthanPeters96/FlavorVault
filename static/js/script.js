@@ -120,20 +120,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmDeleteBtn = document.getElementById("confirmDelete");
     let deleteUrl = "";
 
-    deleteButtons.forEach((button) => {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            deleteUrl = this.getAttribute("href");
-            const modal = M.Modal.getInstance(document.getElementById("deleteModal"));
-            modal.open();
+    // Only set up event listeners if the elements exist
+    if (deleteButtons.length && confirmDeleteBtn) {
+        deleteButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                deleteUrl = this.getAttribute("href");
+                const modal = M.Modal.getInstance(document.getElementById("deleteModal"));
+                modal.open();
+            });
         });
-    });
 
-    confirmDeleteBtn.addEventListener("click", function () {
-        if (deleteUrl) {
-            window.location.href = deleteUrl;
-        }
-    });
+        confirmDeleteBtn.addEventListener("click", function () {
+            if (deleteUrl) {
+                window.location.href = deleteUrl;
+            }
+        });
+    }
 });
 
 // Handle category deletion confirmation
@@ -142,18 +145,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmDeleteCategoryBtn = document.getElementById("confirmDeleteCategory");
     let deleteCategoryUrl = "";
 
-    deleteCategoryButtons.forEach((button) => {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            deleteCategoryUrl = this.getAttribute("href");
-            const modal = M.Modal.getInstance(document.getElementById("deleteCategoryModal"));
-            modal.open();
+    // Only set up event listeners if the elements exist
+    if (deleteCategoryButtons.length && confirmDeleteCategoryBtn) {
+        deleteCategoryButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                deleteCategoryUrl = this.getAttribute("href");
+                const modal = M.Modal.getInstance(document.getElementById("deleteCategoryModal"));
+                modal.open();
+            });
         });
-    });
 
-    confirmDeleteCategoryBtn.addEventListener("click", function () {
-        if (deleteCategoryUrl) {
-            window.location.href = deleteCategoryUrl;
-        }
-    });
+        confirmDeleteCategoryBtn.addEventListener("click", function () {
+            if (deleteCategoryUrl) {
+                window.location.href = deleteCategoryUrl;
+            }
+        });
+    }
 });

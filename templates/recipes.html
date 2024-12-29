@@ -25,12 +25,12 @@
         </div>
         <!-- Recipe Details -->
         <div class="collapsible-body">
-            <span>
+            <div>
                 <strong>{{ recipe.category_name }}</strong>
                 <p>{{ recipe.recipe_description }}</p>
                 <p>{{ recipe.is_healthy }}</p>
                 <p><em>by: {{ recipe.created_by }}</em></p>
-            </span>
+            </div>
         </div>
     </li>
     {% endfor %}

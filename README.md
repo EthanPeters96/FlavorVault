@@ -55,31 +55,15 @@ I used [Balsamiq](https://balsamiq.com/) for my wireframes.
 
 ![FlavorVault Wireframes](/assets/screenshots/wireframes.png)
 
-#### Home Page
-
-![Home](#)
-
-#### Recipes Page
-
-![Recipes](#)
-
-#### About Page
-
-![About](#)
-
-#### Contact Page
-
-![Contact](#)
-
 ## Features
 
-The website is comprised of four main pages, all are accessible from the navigation menu (home page, categories page, login page & signup page).  
+The website is comprised of five main pages, all are accessible from the navigation menu (home page, recipes page, categories page, login page & signup page).  
 And two secondary pages. (recipe page & recipe form page).  
 Lastly one extra page. (404 page)
 
 #### All Pages on the website have:
 
--   A responsive navigation bar at the top which allows the user to navigate through the site. To the left of the navigation bar is the text FlavorVault. To the right of the navigation bar are the links to the website pages (home page, categories page, login page & signup page). When viewing on mobile devices the navigation links change to a burger toggler. This was implemented to give the site a clean look and to promote a good user experience, as users are used to seeing the burger icon when navigating a site on a mobile device.
+-   A responsive navigation bar at the top which allows the user to navigate through the site. To the left of the navigation bar is the text FlavorVault. To the right of the navigation bar are the links to the website pages (home page, recipes page, categories page, login page & signup page). When viewing on mobile devices the navigation links change to a burger toggler. This was implemented to give the site a clean look and to promote a good user experience, as users are used to seeing the burger icon when navigating a site on a mobile device.
 
 -   A footer which contains social media icons links to Instagram and Facebook. Icons were used to keep the footer clean and because they are universally recognizable.
 
@@ -89,27 +73,27 @@ Each page has the same header and footer as well as theme to complete.
 
 #### Home Page
 
-![FlavorVault Home page](#)
+![FlavorVault Home page](/assets/screenshots/home.png)
 
 #### Recipes Page
 
-![FlavorVault Recipes page](#)
+![FlavorVault Recipes page](/assets/screenshots/recipe.png)
 
-#### Contact Page
+#### Categories Page
 
-![FlavorVault Contact page](#)
+![FlavorVault Categories page](/assets/screenshots/categories.png)
 
-#### About Page
+#### Login Page
 
-![FlavorVault About page](#)
+![FlavorVault Login page](/assets/screenshots/login.png)
 
-#### Carbonara Page
+#### Signup Page
 
-![FlavorVault Carbonara page](#)
+![FlavorVault Signup page](/assets/screenshots/signup.png)
 
-#### Tacos Page
+#### Profile Page
 
-![FlavorVault Tacos page](#)
+![FlavorVault Profile page](/assets/screenshots/profile.png)
 
 ## Technologies Used
 
@@ -270,21 +254,27 @@ Tested on [Google Chrome](https://www.google.co.uk/) for functionality , appeara
 
 ### Validator
 
-I have used [W3C](https://www.w3.org/) to validate my code.
+I have used [W3C](https://www.w3.org/) & [JSHint](https://jshint.com/) to validate my code.
 
 ### HTML
 
-![HTML](#)
+![HTML](/assets/screenshots/html-val.png)
 
 Tested all pages.
 
 ### CSS
 
-![CSS](#)
+![CSS](/assets/screenshots/css-val.png)
+
+### JS
+
+![JS](/assets/screenshots/js-hint.png)
 
 ## Credits
 
-I have used previous projects to help with this project
+I have used previous projects to help with this project.
+
+I used AI assistance for my script.js file. and my app.py file.
 
 [flask-task-manager](https://github.com/Code-Institute-Solutions/TaskManagerAuth)
 
