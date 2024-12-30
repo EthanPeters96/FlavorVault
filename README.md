@@ -100,32 +100,51 @@ The application uses MongoDB as its database, with the following collections and
 ### Users Collection
 
 {
+
 "\_id": ObjectId,
+
 "username": String,
+
 "password": String (hashed),
+
 "email": String
+
 }
 
 ### Recipes Collection
 
 {
+
 "\_id": ObjectId,
+
 "recipe_name": String,
+
 "category_name": String,
+
 "recipe_description": String,
+
 "ingredients": Array,
+
 "instructions": Array,
+
 "created_by": String,
+
 "date_added": Date
+
 }
 
 ### Categories Collection
 
 {
+
 "\_id": ObjectId,
+
 "category_name": String,
+
 "category_description": String,
+
 "created_by": String
+
 }
 
 The collections are related in the following ways:
