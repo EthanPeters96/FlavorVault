@@ -8,7 +8,7 @@ Welcome to FlavorVault, the ultimate recipe database for all ages. Discover easy
 
 ### Initial Discussion
 
-FlavorVault is a online recipe database that is focused towards all ages who are looking to step up there cooking game from home and create easy yet tasty meals, without breaking a sweat.
+FlavorVault is an online recipe database that is focused on all ages who are looking to step up their cooking game from home and create easy yet tasty meals without breaking a sweat.
 
 The site is designed to be a simple and easy to use recipe database that allows users to add, view, edit and delete recipes.
 
@@ -23,7 +23,7 @@ The site is designed to be a simple and easy to use recipe database that allows 
 
 #### First Time User Goals
 
--   I want to find out what FlavorVault is about and what i can do.
+-   I want to find out what FlavorVault is about and what I can do.
 -   I want to be able to navigate the site easily.
 -   I want to see all the social media links.
 -   I want to be able to view the site and recipes on any device I am using.
@@ -41,10 +41,6 @@ I used the site [coolors](https://coolors.co/palette/ccd5ae-e9edc9-fefae0-faedcd
 
 ![Color Scheme](/assets/screenshots/coolors.png)
 
-### Imagery
-
-I have used high quality images of food to compliment the site, all my images are sourced from [unsplash](https://unsplash.com/images/stock).
-
 ### Favicon
 
 I used [Favicon](https://favicon.io/) to create my favicon.
@@ -57,8 +53,10 @@ I used [Balsamiq](https://balsamiq.com/) for my wireframes.
 
 ## Features
 
-The website is comprised of five main pages, all are accessible from the navigation menu (home page, recipes page, categories page, login page & signup page).  
-And two secondary pages. (recipe page & recipe form page).  
+The website is comprised of five main pages, all are accessible from the navigation menu (home page, recipes page, categories page, login page & signup page).
+
+secondary pages are profile page and add recipe page.
+
 Lastly one extra page. (404 page)
 
 #### All Pages on the website have:
@@ -99,7 +97,7 @@ Each page has the same header and footer as well as theme to complete.
 
 ### Languages Used
 
-Languages used HTML & CSS & Python & JavaScript
+Languages used: HTML, CSS, Python, and JavaScript.
 
 ### Frameworks, Libraries & Programs Used
 
@@ -194,7 +192,7 @@ To clone the repository:
 
 ### Jest Testing
 
-I have written a testing script using jest, the test pass
+I have written a testing script using jest, all tests passed.
 
 ![Jest](/assets/screenshots/jest.png)
 
@@ -219,12 +217,9 @@ I have written a testing script using jest, the test pass
 | Delete Category | Click on the "Delete Category" button | Modal appears asking for confirmation             | Yes    | Yes    | -        |
 | Delete Category | Click "Cancel" in delete modal        | Modal closes, category is not deleted             | Yes    | Yes    | -        |
 | Delete Category | Click "Delete" in delete modal        | Category is deleted and user sees success message | Yes    | Yes    | -        |
+| 404 Error       | Click on a non-existent link          | The user is redirected to the 404 page            | Yes    | Yes    | -        |
 
 The site was also tested using dev tools on Google Chrome for responsiveness.
-
-Favicon does not work on live site however does work on local deployment.
-
-I was unable to test 404 page.
 
 ### LightHouse
 
@@ -232,31 +227,31 @@ I have tested my website using lighthouse.
 
 #### Home Page
 
-![Home Page](#)
+![Home Page](/assets/screenshots/home-lighthouse.png)
 
 #### Recipes Page
 
-![Recipes](#)
+![Recipes](/assets/screenshots/recipes-lighthouse.png)
 
-#### About Page
+#### Profile Page
 
-![About](#)
+![Profile](/assets/screenshots/profile-lighthouse.png)
 
-#### Contact Page
+#### Categories Page
 
-![Contact](#)
+![Categories](/assets/screenshots/categories-lighthouse.png)
 
-#### Tacos Page
+#### Login Page
 
-![Tacos](#)
+![Login](/assets/screenshots/login-lighthouse.png)
 
-#### Carbonara Page
+#### Register Page
 
-![Carbonara](#)
+![Register](/assets/screenshots/register-lighthouse.png)
 
 ### Compatibility
 
-Tested on [Google Chrome](https://www.google.co.uk/) for functionality , appearance and responsiveness. All features passed.
+Tested on [Google Chrome](https://www.google.co.uk/) for functionality, appearance, and responsiveness. All features passed.
 
 ### Validator
 
@@ -266,7 +261,7 @@ I have used [W3C](https://www.w3.org/) & [JSHint](https://jshint.com/) to valida
 
 ![HTML](/assets/screenshots/html-val.png)
 
-Tested all pages.
+Tested on all pages.
 
 ### CSS
 
@@ -280,7 +275,7 @@ Tested all pages.
 
 I have used previous projects to help with this project.
 
-I used AI assistance for my script.js file. and my app.py file.
+I used AI assistant for my script.js file. and my app.py file.
 
 [flask-task-manager](https://github.com/Code-Institute-Solutions/TaskManagerAuth)
 
@@ -289,10 +284,6 @@ I used AI assistance for my script.js file. and my app.py file.
 I also referred to [Materialize](https://materializecss.com/) docs to learn new ways to style my page.
 
 I followed some guidance from my mentor [Graeme Taylor](https://github.com/G-Taylor).
-
-### Media
-
-Stock images are sourced from [Usplash](https://unsplash.com/).
 
 ### Acknowledgments
 
