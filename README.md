@@ -93,6 +93,57 @@ Each page has the same header and footer as well as theme to complete.
 
 ![FlavorVault Profile page](/assets/screenshots/profile.png)
 
+## Data Schema
+
+The application uses MongoDB as its database, with the following collections and field structures:
+
+### Users Collection
+
+{
+"\_id": ObjectId,
+"username": String,
+"password": String (hashed),
+"email": String
+}
+
+### Recipes Collection
+
+{
+"\_id": ObjectId,
+"recipe_name": String,
+"category_name": String,
+"recipe_description": String,
+"ingredients": Array,
+"instructions": Array,
+"created_by": String,
+"date_added": Date
+}
+
+### Categories Collection
+
+{
+"\_id": ObjectId,
+"category_name": String,
+"category_description": String,
+"created_by": String
+}
+
+The collections are related in the following ways:
+
+-   Recipes reference categories through the `category_name` field
+-   Recipes and categories reference users through the `created_by` field which matches the user's `username`
+-   Each recipe and category document stores the username of its creator
+
+### Entity Relationship Diagram (ERD)
+
+![Entity Relationship Diagram](/assets/screenshots/erd.png)
+
+This diagram illustrates:
+
+-   One user can create many recipes (1:Many)
+-   One user can create many categories (1:Many)
+-   One category can contain many recipes (1:Many)
+
 ## Technologies Used
 
 ### Languages Used
