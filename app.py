@@ -2,8 +2,12 @@
 FlavorVault - A Flask web application for managing and sharing recipes.
 This module contains the main application logic and route handlers.
 """
+
 from functools import wraps
 import os
+# Group bson imports together
+from bson.errors import InvalidId
+from bson.objectid import ObjectId
 from flask import (
     Flask,
     flash,
@@ -14,9 +18,9 @@ from flask import (
     url_for,
 )
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
+from pymongo.errors import PyMongoError
+from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import (
     StringField,
     PasswordField,
@@ -27,6 +31,7 @@ from wtforms.validators import DataRequired, Length, EqualTo, Email
 
 if os.path.exists("env.py"):
     import env  # pylint: disable=unused-import
+
     # env.py sets environment variables, import is needed even if unused
 
 app = Flask(__name__)
@@ -69,15 +74,15 @@ CATEGORY_EXISTS_ERROR_MSG = "Category already exists"
 def handle_db_error(e=None):
     """
     Centralized error handler for database operations.
-    
+
     Args:
-        e: Exception object (optional)
-    
+        e (Exception, optional): The exception that was raised. Defaults to None.
+
     Returns:
-        Redirect response to recipes page
+        Response: Redirect response to recipes page with error message
     """
     if e:
-        app.logger.error("Database error: %s", e)
+        app.logger.error("Database error: %s", str(e))
     flash(DB_ERROR_MSG)
     return redirect(url_for("get_recipes"))
 
@@ -85,13 +90,14 @@ def handle_db_error(e=None):
 def admin_required(f):
     """
     Decorator to restrict access to admin users only.
-    
+
     Args:
-        f: Function to be decorated
-    
+        f (function): The function to be decorated
+
     Returns:
-        Decorated function
+        function: Decorated function that checks for admin privileges
     """
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get("user"):
@@ -109,7 +115,12 @@ def admin_required(f):
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
-    """Display all recipes on the home page."""
+    """
+    Display all recipes on the home page.
+
+    Returns:
+        Response: Rendered recipes.html template with all recipes
+    """
     recipes = mongo.db.recipes.find()
     return render_template("recipes.html", recipes=recipes)
 
@@ -117,7 +128,23 @@ def get_recipes():
 # Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Handle user registration."""
+    """
+    Handle user registration process.
+
+    Validates registration form data, checks for existing users,
+    and creates new user accounts in the database.
+
+    Returns:
+        Response: On GET: registration form
+                 On POST success: redirect to user profile
+                 On POST failure: redirect to registration with error
+    
+    Notes:
+        - Usernames are stored in lowercase
+        - Passwords are hashed before storage
+        - Email addresses are stored in lowercase
+        - Redirects to profile if user is already logged in
+    """
     if session.get("user"):
         return redirect(url_for("profile", username=session["user"]))
 
@@ -143,7 +170,7 @@ def register():
                 session["user"] = username
                 flash(REGISTRATION_SUCCESS_MSG)
                 return redirect(url_for("profile", username=session["user"]))
-            except Exception as e:
+            except PyMongoError as e:
                 return handle_db_error(e)
 
         flash(REGISTRATION_ERROR_MSG)
@@ -153,7 +180,17 @@ def register():
 
 # Registration Form
 class RegistrationForm(FlaskForm):
-    """Form for user registration."""
+    """
+    Form class for user registration.
+
+    Fields:
+        username: 5-15 characters
+        email: Valid email address
+        password: Minimum 5 characters
+        confirm_password: Must match password
+        submit: Submit button
+    """
+
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=5, max=15)]
     )
@@ -179,7 +216,15 @@ class RegistrationForm(FlaskForm):
 
 # Login Form
 class LoginForm(FlaskForm):
-    """Form for user login."""
+    """
+    Form class for user login.
+
+    Fields:
+        username: 5-15 characters
+        password: 5-15 characters
+        submit: Submit button
+    """
+
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=5, max=15)]
     )
@@ -192,7 +237,14 @@ class LoginForm(FlaskForm):
 # Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Handle user login."""
+    """
+    Handle user login process.
+
+    Returns:
+        Response: On GET: login form
+                 On POST success: redirect to user profile
+                 On POST failure: redirect to login with error
+    """
     if session.get("user"):
         return redirect(url_for("profile", username=session["user"]))
 
@@ -218,7 +270,24 @@ def login():
 # Profile
 @app.route("/profile/<username>")
 def profile(username):
-    """Display user profile page."""
+    """
+    Display user profile page.
+
+    Args:
+        username (str): Username of the profile to display
+
+    Returns:
+        Response: On success: rendered profile.html template
+                 On not logged in: redirect to login page
+                 On user not found: redirect to login page with error
+                 On database error: redirect to recipes page
+
+    Notes:
+        - Requires user to be logged in
+        - Validates user exists in database
+        - Clears session if user not found
+        - Handles database errors gracefully
+    """
     if not session.get("user"):
         flash(PROFILE_ACCESS_ERROR_MSG)
         return redirect(url_for("login"))
@@ -232,14 +301,19 @@ def profile(username):
 
         return render_template("profile.html", username=username)
 
-    except Exception as e:
+    except PyMongoError as e:
         return handle_db_error(e)
 
 
 # Logout
 @app.route("/logout")
 def logout():
-    """Handle user logout by removing user from session."""
+    """
+    Handle user logout process.
+
+    Returns:
+        Response: Redirect to login page with logout message
+    """
     flash(LOGOUT_MSG)
     session.pop("user")
     return redirect(url_for("login"))
@@ -248,7 +322,14 @@ def logout():
 # Add a recipe
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    """Handle adding new recipes to the database."""
+    """
+    Handle creation of new recipes.
+
+    Returns:
+        Response: On GET: recipe creation form
+                 On POST success: redirect to recipes page
+                 On POST failure: return to form with error
+    """
     if not session.get("user"):
         flash(RECIPE_ACCESS_ERROR_MSG)
         return redirect(url_for("login"))
@@ -279,20 +360,29 @@ def add_recipe():
             flash(RECIPE_ADDED_MSG)
             return redirect(url_for("get_recipes"))
 
-        except Exception as e:
+        except PyMongoError as e:
             return handle_db_error(e)
 
     try:
         all_categories = list(mongo.db.categories.find().sort("category_name", 1))
         return render_template("add_recipe.html", categories=all_categories)
-    except Exception as e:
+    except PyMongoError as e:
         return handle_db_error(e)
 
 
 # Edit a recipe
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
-    """Handle editing existing recipes."""
+    """
+    Handle editing of existing recipes.
+
+    Args:
+        recipe_id (str): MongoDB ObjectId of recipe to edit
+
+    Returns:
+        Response: On GET: edit form with recipe data
+                 On POST: redirect to recipes page
+    """
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if not session.get("user"):
         flash(RECIPE_ACCESS_ERROR_MSG)
@@ -326,7 +416,15 @@ def edit_recipe(recipe_id):
 # Delete a recipe
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
-    """Handle deletion of recipes."""
+    """
+    Handle deletion of recipes.
+
+    Args:
+        recipe_id (str): MongoDB ObjectId of recipe to delete
+
+    Returns:
+        Response: Redirect to recipes page with success/error message
+    """
     if not session.get("user"):
         flash(RECIPE_ACCESS_ERROR_MSG)
         return redirect(url_for("login"))
@@ -352,11 +450,16 @@ def delete_recipe(recipe_id):
 @app.route("/categories")
 @admin_required
 def categories():
-    """Display all categories."""
+    """
+    Display all recipe categories.
+
+    Returns:
+        Response: Rendered categories.html template with all categories
+    """
     try:
         category_list = list(mongo.db.categories.find().sort("category_name", 1))
         return render_template("categories.html", categories=category_list)
-    except Exception as e:
+    except PyMongoError as e:
         return handle_db_error(e)
 
 
@@ -364,7 +467,14 @@ def categories():
 @app.route("/add_category", methods=["GET", "POST"])
 @admin_required
 def add_category():
-    """Handle adding new categories."""
+    """
+    Handle creation of new categories.
+
+    Returns:
+        Response: On GET: category creation form
+                 On POST success: redirect to categories page
+                 On POST failure: return to form with error
+    """
     if request.method == "POST":
         category_name = request.form.get("category_name", "").strip()
 
@@ -385,7 +495,7 @@ def add_category():
             flash(CATEGORY_ADDED_MSG)
             return redirect(url_for("categories"))
 
-        except Exception as e:
+        except PyMongoError as e:
             return handle_db_error(e)
 
     return render_template("add_category.html")
@@ -396,10 +506,10 @@ def add_category():
 def edit_category(category_id):
     """
     Handle editing of existing categories.
-    
+
     Args:
         category_id: The ID of the category to edit
-    
+
     Returns:
         On GET: Rendered edit_category.html template with category data
         On POST: Redirect to categories page after successful update
@@ -419,13 +529,13 @@ def edit_category(category_id):
 def delete_category(category_id):
     """
     Handle deletion of categories.
-    
+
     Args:
         category_id: The ID of the category to delete
-    
+
     Returns:
         Redirect response to categories page
-        
+
     Notes:
         - Only administrators can delete categories
         - Categories containing recipes cannot be deleted
@@ -433,7 +543,12 @@ def delete_category(category_id):
     """
     try:
         # Check if category exists
-        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        try:
+            category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        except InvalidId:
+            flash(CATEGORY_NOT_FOUND_MSG)
+            return redirect(url_for("categories"))
+
         if not category:
             flash(CATEGORY_NOT_FOUND_MSG)
             return redirect(url_for("categories"))
@@ -452,9 +567,24 @@ def delete_category(category_id):
 
         mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
         flash(CATEGORY_DELETED_MSG)
-    except Exception as e:
+    except PyMongoError as e:
         return handle_db_error(e)
     return redirect(url_for("categories"))
+
+
+# 404 Error
+@app.errorhandler(404)
+def page_not_found(_):
+    """
+    Handle 404 page not found errors.
+
+    Args:
+        _ (Exception): Flask's error object (unused but required)
+
+    Returns:
+        tuple: Rendered 404 template and 404 status code
+    """
+    return render_template("404.html"), 404
 
 
 # Run the app

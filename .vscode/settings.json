@@ -24,12 +24,16 @@
         "dnspython",
         "Fontawesome",
         "Graeme",
+        "itsdangerous",
         "Nescot",
+        "pathspec",
         "Procfile",
+        "Pylint",
         "pymongo",
         "signup",
         "sqlalchemy",
         "Usplash",
+        "Werkzeug",
         "wireframes"
     ]
 }

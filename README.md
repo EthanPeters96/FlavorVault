@@ -119,6 +119,12 @@ dnspython - Used to connect to the database.
 
 jQuery - Used to make the site more interactive.
 
+Pylint - To check for errors in the code.
+
+Black - To format the code app.py.
+
+prettier - To format all the other files.
+
 Font Awesome - For icons.
 
 pymongo - Used to interact with the database.
@@ -196,6 +202,14 @@ I have written a testing script using jest, all tests passed.
 
 ![Jest](/assets/screenshots/jest.png)
 
+### Pylint Testing
+
+I have used pylint to check for errors in the code. and black to format the code.
+
+app.py is pep8 compliant and passes pylint with no errors.
+
+![Pylint](/assets/screenshots/pylint.png)
+
 ### Manual Testing
 
 | Feature         | Action                                | Expected result                                   | Tested | Passed | Comments |
@@ -231,7 +245,7 @@ I have tested my website using lighthouse.
 
 #### Recipes Page
 
-![Recipes](/assets/screenshots/recipes-lighthouse.png)
+![Recipes](/assets/screenshots/recipe-lighthouse.png)
 
 #### Profile Page
 
