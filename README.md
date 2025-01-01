@@ -355,6 +355,46 @@ Tested on all pages.
 
 ![JS](/assets/screenshots/js-hint.png)
 
+## Security Features
+
+### Authentication
+
+-   User authentication is implemented using Flask-Login
+-   Passwords are hashed using Werkzeug's security features before storage
+-   Login is required for creating, editing, and deleting recipes/categories
+-   Users can only modify their own content
+
+### Form Security
+
+-   CSRF (Cross-Site Request Forgery) protection is implemented using Flask-WTF
+-   Input validation and sanitization is performed on all form submissions
+-   File upload validation restricts file types and sizes
+
+### Database Security
+
+-   MongoDB connection string is stored as an environment variable
+-   Database credentials are never exposed in the code
+-   Queries are parameterized to prevent injection attacks
+
+### Session Security
+
+-   Session cookies are HTTP-only
+-   Secure flag is set on cookies in production
+-   Sessions expire after period of inactivity
+-   Session data is stored server-side
+
+### General Security Measures
+
+-   Debug mode is disabled in production
+-   Environment variables are used for sensitive configuration
+-   Error messages don't reveal sensitive information
+-   Regular security updates are applied to all dependencies
+
+### Rate Limiting
+
+-   API endpoints are rate-limited to prevent abuse
+-   Failed login attempts are tracked and temporary lockouts are enforced
+
 ## Credits
 
 I have used previous projects to help with this project.
