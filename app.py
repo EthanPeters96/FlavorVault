@@ -5,6 +5,7 @@ This module contains the main application logic and route handlers.
 
 from functools import wraps
 import os
+
 # Group bson imports together
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
@@ -138,7 +139,7 @@ def register():
         Response: On GET: registration form
                  On POST success: redirect to user profile
                  On POST failure: redirect to registration with error
-    
+
     Notes:
         - Usernames are stored in lowercase
         - Passwords are hashed before storage
@@ -319,6 +320,16 @@ def logout():
     return redirect(url_for("login"))
 
 
+# Add this class for forms that only need CSRF protection
+class CSRFProtectForm(FlaskForm):
+    """
+    A minimal form class that provides CSRF protection without any additional fields.
+    
+    This form is used for forms that don't need any specific field validation
+    but still require CSRF protection for security.
+    """
+
+
 # Add a recipe
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
@@ -365,7 +376,8 @@ def add_recipe():
 
     try:
         all_categories = list(mongo.db.categories.find().sort("category_name", 1))
-        return render_template("add_recipe.html", categories=all_categories)
+        form = CSRFProtectForm()
+        return render_template("add_recipe.html", categories=all_categories, form=form)
     except PyMongoError as e:
         return handle_db_error(e)
 
@@ -410,7 +422,10 @@ def edit_recipe(recipe_id):
         return redirect(url_for("get_recipes"))
 
     all_categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("edit_recipe.html", recipe=recipe, categories=all_categories)
+    form = CSRFProtectForm()
+    return render_template(
+        "edit_recipe.html", recipe=recipe, categories=all_categories, form=form
+    )
 
 
 # Delete a recipe
@@ -498,7 +513,8 @@ def add_category():
         except PyMongoError as e:
             return handle_db_error(e)
 
-    return render_template("add_category.html")
+    form = CSRFProtectForm()
+    return render_template("add_category.html", form=form)
 
 
 # Edit a category
@@ -520,7 +536,8 @@ def edit_category(category_id):
         flash(CATEGORY_UPDATED_MSG)
         return redirect(url_for("categories"))
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    return render_template("edit_category.html", category=category)
+    form = CSRFProtectForm()
+    return render_template("edit_category.html", category=category, form=form)
 
 
 # Delete a category

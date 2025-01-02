@@ -9,10 +9,10 @@
 <!-- Add Recipe Form -->
 
 <div class="row card-panel grey lighten-5">
-    <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_recipe') }}">
         <!-- Recipe Category -->
         <div class="row">
-            <div class="input-field col s8 offset-s2">
+            <div class="input-field col s12">
                 <i class="fa-solid fa-folder-open prefix amber-text text-darken-3"></i>
                 <select id="category_name" name="category_name" class="validate" required>
                     <option value="" disabled selected>Choose Category</option>
@@ -25,7 +25,7 @@
         </div>
         <!-- Recipe Name -->
         <div class="row">
-            <div class="input-field col s8 offset-s2">
+            <div class="input-field col s12">
                 <i class="fa-solid fa-bowl-food prefix amber-text text-darken-3"></i>
                 <input id="recipe_name" name="recipe_name" minlength="3" maxlength="50" type="text" class="validate"
                     required>
@@ -34,7 +34,7 @@
         </div>
         <!-- Recipe Description -->
         <div class="row">
-            <div class="input-field col s8 offset-s2">
+            <div class="input-field col s12">
                 <i class="fas fa-book-open prefix amber-text text-darken-3"></i>
                 <textarea id="recipe_description" name="recipe_description" minlength="3" maxlength="250"
                     class="materialize-textarea validate" required></textarea>
@@ -43,7 +43,7 @@
         </div>
         <!-- Recipe Date -->
         <div class="row">
-            <div class="input-field col s8 offset-s2">
+            <div class="input-field col s12">
                 <i class="fas fa-calendar-alt prefix amber-text text-darken-3"></i>
                 <input id="date_added" name="date_added" type="text" class="datepicker validate" required>
                 <label for="date_added">Recipe Date Added</label>
@@ -51,8 +51,7 @@
         </div>
         <!-- Healthy Recipe Switch -->
         <div class="row">
-            <div class="input-field col s8 offset-s2">
-                <!-- Switch -->
+            <div class="input-field col s12">
                 <div class="switch">
                     <i class="fa-solid fa-carrot prefix amber-text text-darken-3"></i>
                     <label for="healthy">

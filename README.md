@@ -16,10 +16,10 @@ The site is designed to be a simple and easy to use recipe database that allows 
 
 #### Client Goals
 
--   To be able to view the site on a range of devices.
--   To make it easy for users to find and follow recipes.
--   To allow users to add, view, edit and delete recipes.
--   To allow people to contact FlavorVault to ask further questions or suggest cooking recommendations etc.
+-   To be able to view the site on a range of devices
+-   To make it easy for users to find and follow recipes
+-   To allow users to add, view, edit, and delete recipes
+-   To allow people to contact FlavorVault to ask questions or suggest cooking recommendations
 
 #### First Time User Goals
 
@@ -53,11 +53,11 @@ I used [Balsamiq](https://balsamiq.com/) for my wireframes.
 
 ## Features
 
-The website is comprised of five main pages, all are accessible from the navigation menu (home page, recipes page, categories page, login page & signup page).
+-   The website is comprised of five main pages, all are accessible from the navigation menu (home page, recipes page, categories page, login page & signup page).
 
-secondary pages are profile page and add recipe page.
+-   secondary pages are profile page and add recipe page.
 
-Lastly one extra page. (404 page)
+-   Lastly one extra page. (404 page)
 
 #### All Pages on the website have:
 
@@ -167,47 +167,31 @@ This diagram illustrates:
 
 ### Languages Used
 
-Languages used: HTML, CSS, Python, and JavaScript.
+-   HTML
+-   CSS
+-   Python
+-   JavaScript
 
 ### Frameworks, Libraries & Programs Used
 
-Balsamiq - Used to create wireframes.
-
-Flask - Used to create the backend for the website.
-
-Flask-WTF - Used to create the forms for the website.
-
-Flask-Login - Used to create the login system for the website.
-
-Jinja - Used to create the dynamic pages for the website.
-
-Heroku - Used to deploy the website.
-
-MongoDB - Used to store the data for the website.
-
-dnspython - Used to connect to the database.
-
-jQuery - Used to make the site more interactive.
-
-Pylint - To check for errors in the code.
-
-Black - To format the code app.py.
-
-prettier - To format all the other files.
-
-Font Awesome - For icons.
-
-pymongo - Used to interact with the database.
-
-Git - For version control.
-
-Github - To save and store the files for the website.
-
-Materialize - Used to create the navigation bar, cards and form.
-
-Google Dev Tools - To troubleshoot and test features and solve issues with responsiveness and styling.
-
-Fontawesome - For icons.
+1. Balsamiq - Used to create wireframes
+2. Flask - Used to create the backend for the website
+3. Flask-WTF - Used to create the forms for the website
+4. Flask-Login - Used to create the login system for the website
+5. Jinja - Used to create the dynamic pages for the website
+6. Heroku - Used to deploy the website
+7. MongoDB - Used to store the data for the website
+8. dnspython - Used to connect to the database
+9. jQuery - Used to make the site more interactive
+10. Pylint - To check for errors in the code
+11. Black - To format the code app.py
+12. prettier - To format all the other files
+13. Font Awesome - For icons
+14. pymongo - Used to interact with the database
+15. Git - For version control
+16. Github - To save and store the files for the website
+17. Materialize - Used to create the navigation bar, cards and form
+18. Google Dev Tools - To troubleshoot and test features and solve issues with responsiveness and styling
 
 ## Deployment & Local Development
 
@@ -304,6 +288,12 @@ app.py is pep8 compliant and passes pylint with no errors.
 | 404 Error       | Click on a non-existent link          | The user is redirected to the 404 page            | Yes    | Yes    | -        |
 
 The site was also tested using dev tools on Google Chrome for responsiveness.
+
+### Known Bugs
+
+-   Add category button icon display issue on mobile devices (unresolved)
+-   New recipe form not displaying correctly on mobile devices (resolved)
+-   Edit recipe form not displaying correctly on mobile devices (resolved)
 
 ### LightHouse
 

@@ -1,69 +1,43 @@
-/* Text shadow for the register title */
+/* CSS Custom Properties (Variables) */
+:root {
+    --primary-bg: #343a40;
+    --accent-color: #ef6c00;
+    --accent-hover: #ff9800;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --shadow-dark: rgba(0, 0, 0, 0.5);
+}
+
+/* Typography */
 .text-shadow {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 2px var(--shadow-dark);
 }
 
-/* Navbar background color */
-.nav-extended {
-    background-color: #343a40;
-}
-
-/* Menu icon color */
-.sidenav {
-    background-color: #343a40;
-}
-
-/* Collapsible header color */
-.collapsible-header {
-    background-color: #343a40;
-}
-
-/* Card background color */
-.card {
-    background-color: #343a40;
-}
-
-/* Menu icon color */
-.sidenav-trigger .fa-bars {
-    color: #ef6c00;
-}
-
-/* Hover effect for the menu icon */
-.sidenav-trigger .fa-bars:hover {
-    color: #ff9800;
-}
-
-/* Title Styling */
-#add-recipe-title {
-    font-weight: bold;
-}
-
-#edit-category-title {
-    font-weight: bold;
-}
-
-#edit-recipe-title {
-    font-weight: bold;
-}
-
-#register-title {
-    font-weight: bold;
-}
-
-#login-title {
-    font-weight: bold;
-}
-
-#recipes-title {
-    font-weight: bold;
-}
-
-#page-heading {
-    font-weight: bold;
-}
-
+/* Title styles - consolidated */
+#add-recipe-title,
+#edit-category-title,
+#edit-recipe-title,
+#register-title,
+#login-title,
+#recipes-title,
+#page-heading,
 #categories-title {
     font-weight: bold;
+}
+
+/* Navigation */
+.nav-extended,
+.sidenav,
+.collapsible-header,
+.card {
+    background-color: var(--primary-bg);
+}
+
+.sidenav-trigger .fa-bars {
+    color: var(--accent-color);
+}
+
+.sidenav-trigger .fa-bars:hover {
+    color: var(--accent-hover);
 }
 
 /* Flash Messages */
@@ -74,19 +48,15 @@
 
 .flashes h4 {
     line-height: 2;
-    background-color: #ef6c00;
+    background-color: var(--accent-color);
     color: white;
     border-radius: 5px;
     padding: 1rem;
     margin: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px var(--shadow-color);
     transition: opacity 0.5s ease-in-out;
     z-index: 1000;
     position: relative;
-}
-
-/* Animation for flash messages */
-.flashes h4 {
     animation: fadeIn 0.5s ease-in;
 }
 
@@ -101,23 +71,47 @@
     }
 }
 
-/* Button Styling */
-.btn-small {
-    margin: 5px;
+/* Buttons and Interactive Elements */
+.btn-small,
+.btn-large {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-small:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.btn-small {
+    margin: 5px;
 }
 
+.btn-small:hover,
 .btn-large:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+/* Layout Components */
 .collapsible-header .col strong {
     margin: 5px;
     line-height: 42px;
+}
+
+.recipe-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button-group {
+    display: inline-flex;
+    gap: 5px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 600px) {
+    .collapsible-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recipe-actions {
+        margin-bottom: 10px;
+    }
 }
